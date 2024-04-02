@@ -1,12 +1,10 @@
-import 'package:poccrud/src/modules/loan/infra/datasources/loan_datasource_interface.dart';
-import 'package:poccrud/src/modules/loan/infra/models/loan_model.dart';
-
 import '../../../../core/_exports.dart';
+import '../../_exports.dart';
 
-class LoanDataSource implements ILoanDatasource {
+class LoanDatasource implements ILoanDatasource {
   final IApiClient apiClient;
 
-  LoanDataSource({required this.apiClient});
+  LoanDatasource({required this.apiClient});
 
   @override
   Future<LoanModel> createLoan(LoanModel loan) async {
@@ -34,7 +32,9 @@ class LoanDataSource implements ILoanDatasource {
   Future<List<LoanModel>> getLoans() async {
     try {
       var response = await apiClient.get('loan');
-      return LoanModel.fromJsonList(response['data'].tolist());
+      var list = response.data as List;
+      var result = LoanModel.fromJsonList(list);
+      return result;
     } catch (e) {
       return Future.error(e.toString());
     }

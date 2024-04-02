@@ -8,12 +8,15 @@ class LoanModel extends LoanEntity {
     required super.amount,
   });
 
-  factory LoanModel.fromJson(Map<String, dynamic> json) => LoanModel(
-        id: json['id'] as String,
-        name: json['name'] as String,
-        type: json['type'] as String,
-        amount: json['amount'] as double,
-      );
+  factory LoanModel.fromJson(Map<String, dynamic> json) {
+    var result = LoanModel(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      type: json['type'] as String,
+      amount: json['amount'] as double,
+    );
+    return result;
+  }
 
   LoanEntity toEntity() => copyWith();
 
@@ -34,6 +37,8 @@ class LoanModel extends LoanEntity {
         'amount': amount,
       };
 
-  static List<LoanModel> fromJsonList(List<Map<String, dynamic>> json) =>
-      json.map((e) => LoanModel.fromJson(e)).toList();
+  static List<LoanModel> fromJsonList(List<dynamic> json) {
+    var result = json.map((e) => LoanModel.fromJson(e)).toList();
+    return result;
+  }
 }
